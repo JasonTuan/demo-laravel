@@ -28,6 +28,12 @@ npm i --save bootstrap jquery @popperjs/core @fortawesome/fontawesome-free
 npm run build
 ```
 
+## Validation
+- https://laravel.com/docs/11.x/validation
+```shell
+php artisan make:request ContactGroupRequest
+```
+
 ### References
 - PHP Fpm Official https://hub.docker.com/_/php
 - PHP Easy Install Extensions https://morioh.com/p/cfb07d581669

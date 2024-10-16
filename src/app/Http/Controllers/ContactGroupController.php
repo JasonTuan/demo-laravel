@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactGroupRequest;
 use App\Models\ContactGroup;
 use Illuminate\Http\Request;
 
@@ -20,11 +21,9 @@ class ContactGroupController extends Controller
         return view('contact-group.add', []);
     }
 
-    public function create(Request $request)
+    public function create(ContactGroupRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|max:255',
-        ]);
+        $data = $request->validated();
 
         ContactGroup::create($data);
         return redirect()->route('contactGroup.list');
@@ -42,18 +41,16 @@ class ContactGroupController extends Controller
         ]);
     }
 
-    public function update(Request $request, int $id)
+    public function update(ContactGroupRequest $request, int $id)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-        ]);
+        $data = $request->validated();
 
         $contactGroup = ContactGroup::find($id);
         if ($contactGroup === null) {
             abort(404);
         }
 
-        $contactGroup->name = $request->get('name');
+        $contactGroup->fill($data);
         $contactGroup->save();
 
         return redirect()->route('contactGroup.show', ['id' => $id])->with('status', 'Update successful');
