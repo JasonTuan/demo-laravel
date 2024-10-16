@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactGroupRequest;
 use App\Models\ContactGroup;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class ContactGroupController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $contactGroups = ContactGroup::all();
         return view('contact-group.index', [
@@ -16,12 +17,12 @@ class ContactGroupController extends Controller
         ]);
     }
 
-    public function add()
+    public function add(): View
     {
         return view('contact-group.add', []);
     }
 
-    public function create(ContactGroupRequest $request)
+    public function create(ContactGroupRequest $request): RedirectResponse
     {
         $data = $request->validated();
 
@@ -29,7 +30,7 @@ class ContactGroupController extends Controller
         return redirect()->route('contactGroup.list');
     }
 
-    public function show(int $id)
+    public function show(int $id): View
     {
         $contactGroup = ContactGroup::find($id);
         if ($contactGroup === null) {
@@ -41,7 +42,7 @@ class ContactGroupController extends Controller
         ]);
     }
 
-    public function update(ContactGroupRequest $request, int $id)
+    public function update(ContactGroupRequest $request, int $id): RedirectResponse
     {
         $data = $request->validated();
 
@@ -56,7 +57,7 @@ class ContactGroupController extends Controller
         return redirect()->route('contactGroup.show', ['id' => $id])->with('status', 'Update successful');
     }
 
-    public function delete(int $id)
+    public function delete(int $id): RedirectResponse
     {
         $contactGroup = ContactGroup::find($id);
         if ($contactGroup === null) {
