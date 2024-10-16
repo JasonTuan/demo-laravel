@@ -4,16 +4,16 @@ Docker composer for Laravel develop environment
 ## Getting Started
 Access to docker folder and run command
 ```shell
-docker-compose -p="files-management" up --build -d
+docker-compose -p="demo-laravel" up --build -d
 ```
 
 ## Setup Laravel project
 ### From existing project
 Copy your project to src folder
 ### From new project
-Goto FileManagementPhp container
+Goto DemoLaravelPhp container
 ```shell
-docker exec -it FileManagementPhp /bin/bash
+docker exec -it DemoLaravelPhp /bin/bash
 ```
 Create new project
 ```shell
@@ -56,9 +56,9 @@ REDIS_PORT=6379
 
 ## Access to the container
 ```shell
-docker exec -it FileManagementPhp /bin/bash
-docker exec -it FileManagementNginx /bin/bash
-docker exec -it FileManagementMariadb /bin/bash
+docker exec -it DemoLaravelPhp /bin/bash
+docker exec -it DemoLaravelNginx /bin/bash
+docker exec -it DemoLaravelMariadb /bin/bash
 ```
 
 ### References
