@@ -22,9 +22,11 @@ class ContactGroupController extends Controller
 
     public function create(Request $request)
     {
-        $contactGroup = new ContactGroup();
-        $contactGroup->name = $request->get('name');
-        $contactGroup->save();
+        $data = $request->validate([
+            'name' => 'required|max:255',
+        ]);
+
+        ContactGroup::create($data);
         return redirect()->route('contactGroup.list');
     }
 
@@ -42,6 +44,10 @@ class ContactGroupController extends Controller
 
     public function update(Request $request, int $id)
     {
+        $request->validate([
+            'name' => 'required|max:255',
+        ]);
+
         $contactGroup = ContactGroup::find($id);
         if ($contactGroup === null) {
             abort(404);
