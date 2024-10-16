@@ -2,22 +2,18 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactGroupController;
-use App\Http\Controllers\Demo1Controller;
+use App\Http\Controllers\HomeController;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
-//Route::get(
-//    '/',
-//    [HomeController::class, 'index']
-//)->name('homepage');
-
-Route::prefix('demo1')->group(function () {
-    Route::get('/index', [Demo1Controller::class, 'index']);
-});
+Route::get(
+    '/',
+    [HomeController::class, 'index']
+)->name('homepage');
 
 Route::prefix('contact-group')->name('contactGroup')->group(function () {
     Route::get('/', [ContactGroupController::class, 'index'])->name('.list');

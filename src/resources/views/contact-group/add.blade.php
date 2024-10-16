@@ -1,18 +1,26 @@
-@extends('layouts.basic')
+@extends('layouts.default')
 
-@section('content')
-    <h2>Add Contact Group</h2>
+@section('page_content')
+    <h3>Add Contact Group</h3>
 
-    <form method="post" action="{{ route('contactGroup.create') }}">
-        @csrf
-        <p>
-            <label for="name">Name:</label>
-            <input type="text" name="name" id="name">
-        </p>
-        <p>
-            <a href="{{ route('contactGroup.list') }}">Back To List</a>
-            <button type="submit">Add</button>
-        </p>
-    </form>
+    <div class="row">
+        <div class="col-6">
+            <form method="post" action="{{ route('contactGroup.create') }}">
+                @csrf
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" name="name" id="name" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-regular fa-floppy-disk"></i> Add
+                    </button>
+                    <a href="{{ route('contactGroup.list') }}" class="btn btn-link">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
 
 @endsection

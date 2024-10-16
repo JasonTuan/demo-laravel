@@ -1,6 +1,6 @@
-@extends('layouts.basic')
+@extends('layouts.default')
 
-@section('content')
+@section('page_content')
     <h2>Contact</h2>
 
     <a href="{{ route('contact.add') }}">Add Contact</a>

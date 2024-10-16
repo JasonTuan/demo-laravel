@@ -1,6 +1,6 @@
-@extends('layouts.basic')
+@extends('layouts.default')
 
-@section('content')
+@section('page_content')
     <h2>Add Contact</h2>
 
     <form method="post" action="{{ route('contact.create') }}">

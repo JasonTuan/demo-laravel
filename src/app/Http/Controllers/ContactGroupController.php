@@ -50,7 +50,7 @@ class ContactGroupController extends Controller
         $contactGroup->name = $request->get('name');
         $contactGroup->save();
 
-        return redirect()->route('contactGroup.show', ['id' => $id]);
+        return redirect()->route('contactGroup.show', ['id' => $id])->with('status', 'Update successful');
     }
 
     public function delete(int $id)
