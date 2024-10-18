@@ -2,6 +2,8 @@ Development Guide
 =================
 
 ## Generate Model and Migration from Schema
+- https://laravel.com/docs/11.x/eloquent-relationships#updating-belongs-to-relationships
+- https://laravel.com/docs/11.x/eloquent-relationships#updating-many-to-many-relationships
 ```shell
 composer require --dev kitloong/laravel-migrations-generator
 php artisan migrate:generate --tables="contact_group,contact"

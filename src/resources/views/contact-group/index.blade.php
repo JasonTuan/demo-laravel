@@ -19,7 +19,7 @@
             <thead>
                 <tr>
                     <th class="col-1">ID</th>
-                    <th class="col-10">Name</th>
+                    <th class="col">Name</th>
                     <th class="col-1">Actions</th>
                 </tr>
             </thead>
@@ -62,7 +62,7 @@
                         <i class="fa-solid fa-xmark"></i>
                         Cancel
                     </button>
-                    <button type="button" class="btn btn-primary btn-confirm-delete">
+                    <button type="button" class="btn btn-danger btn-confirm-delete">
                         <i class="fa-solid fa-trash-can"></i>
                         Delete
                     </button>

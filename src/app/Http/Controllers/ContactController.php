@@ -2,45 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use App\Models\ContactGroup;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         return view('contact.index', [
             'contacts' => Contact::with('contactGroup')->get(),
         ]);
     }
 
-    public function add()
+    public function add(): View
     {
         return view('contact.add', [
             'contactGroups' => ContactGroup::all(),
         ]);
     }
 
-    public function create(Request $request)
+    public function create(ContactRequest $request): RedirectResponse
     {
-        $groupId = $request->get('groupId');
-        $group = ContactGroup::find($groupId);
-        if ($group === null) {
-            abort(404);
-        }
+        $request->validated();
 
-        $contact = new Contact();
-        $contact->contact_group = $groupId;
-        $contact->fullname = $request->get('fullName');
-        $contact->email = $request->get('email');
-        $contact->tel = $request->get('tel');
-        $contact->address = $request->get('address');
+        $contact = Contact::create($request->all());
+        $contact->contactGroup()
+            ->associate(ContactGroup::find($request->get('groupId')));
         $contact->save();
+
         return redirect()->route('contact.list');
     }
 
-    public function show(int $id)
+    public function show(int $id): View
     {
         $contact = Contact::find($id);
         if ($contact === null) {
@@ -53,30 +49,22 @@ class ContactController extends Controller
         ]);
     }
 
-    public function update(Request $request, int $id)
+    public function update(ContactRequest $request, int $id): RedirectResponse
     {
         $contact = Contact::find($id);
         if ($contact === null) {
             abort(404);
         }
 
-        $groupId = $request->get('groupId');
-        $group = ContactGroup::find($groupId);
-        if ($group === null) {
-            abort(404);
-        }
-
-        $contact->group_id = $groupId;
-        $contact->fullname = $request->get('fullName');
-        $contact->email = $request->get('email');
-        $contact->tel = $request->get('tel');
-        $contact->address = $request->get('address');
+        $contact->fill($request->all());
+        $contact->contactGroup()
+            ->associate(ContactGroup::find($request->get('groupId')));
         $contact->save();
 
-        return redirect()->route('contact.show', ['id' => $id]);
+        return redirect()->route('contact.show', ['id' => $id])->with('status', 'Update successful');
     }
 
-    public function delete(int $id)
+    public function delete(int $id): RedirectResponse
     {
         $contact = Contact::find($id);
         if ($contact === null) {

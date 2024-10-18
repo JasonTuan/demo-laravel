@@ -7,6 +7,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Contact
@@ -18,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $address
  * @property int|null $group_id
  *
- * @property ContactGroup|null $contact_group
+ * @property ContactGroup|null $contactGroup
  *
  * @package App\Models
  */
@@ -36,10 +37,9 @@ class Contact extends Model
 		'email',
 		'tel',
 		'address',
-		'group_id'
 	];
 
-	public function contactGroup()
+	public function contactGroup(): BelongsTo
 	{
 		return $this->belongsTo(ContactGroup::class, 'group_id');
 	}
