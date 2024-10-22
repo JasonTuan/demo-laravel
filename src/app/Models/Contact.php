@@ -34,9 +34,9 @@ class Contact extends Model
 
 	protected $fillable = [
 		'fullname',
-		'email',
-		'tel',
-		'address',
+        'email',
+        'tel',
+        'address',
 	];
 
 	public function contactGroup(): BelongsTo

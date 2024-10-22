@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactGroupRequest;
 use App\Models\ContactGroup;
+use App\Services\ContactGroupManagementService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -22,11 +23,13 @@ class ContactGroupController extends Controller
         return view('contact-group.add', []);
     }
 
-    public function create(ContactGroupRequest $request): RedirectResponse
+    public function create(
+        ContactGroupRequest $request,
+        ContactGroupManagementService $service,
+    ): RedirectResponse
     {
         $data = $request->validated();
-
-        ContactGroup::create($data);
+        $service->createContactGroup($data);
         return redirect()->route('contactGroup.list');
     }
 
@@ -42,30 +45,24 @@ class ContactGroupController extends Controller
         ]);
     }
 
-    public function update(ContactGroupRequest $request, int $id): RedirectResponse
+    public function update(
+        ContactGroupRequest $request,
+        ContactGroupManagementService $service,
+        int $id,
+    ): RedirectResponse
     {
         $data = $request->validated();
-
-        $contactGroup = ContactGroup::find($id);
-        if ($contactGroup === null) {
-            abort(404);
-        }
-
-        $contactGroup->fill($data);
-        $contactGroup->save();
+        $service->updateContactGroup($id, $data);
 
         return redirect()->route('contactGroup.show', ['id' => $id])->with('status', 'Update successful');
     }
 
-    public function delete(int $id): RedirectResponse
+    public function delete(
+        ContactGroupManagementService $service,
+        int $id,
+    ): RedirectResponse
     {
-        $contactGroup = ContactGroup::find($id);
-        if ($contactGroup === null) {
-            abort(404);
-        }
-
-        $contactGroup->delete();
-
+        $service->deleteContactGroup($id);
         return redirect()->route('contactGroup.list');
     }
 }
